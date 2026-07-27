@@ -256,7 +256,9 @@
     var SCOPE = '.strip, .trust-band, .trust-grid, .spec-band, .stats, .tb-stats, .dom-stats, .kt-stats';
     var nodes = [];
     var cand = all(DIRECT).filter(function (el) {
-      return !el.classList.contains('hf-phone-num') && !el.classList.contains('pno') && !el.children.length;
+      // .svc-row .num to numeracja usług („01", „02") — animowanie gubiło wiodące zero
+      return !el.classList.contains('hf-phone-num') && !el.classList.contains('pno') && !el.children.length
+        && !(el.closest && el.closest('.svc-row'));
     });
     all(SCOPE).forEach(function (box) {
       all('b, strong, dt', box).forEach(function (el) { if (cand.indexOf(el) === -1) cand.push(el); });
